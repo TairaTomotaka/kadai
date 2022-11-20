@@ -38,14 +38,33 @@
     * 058: is_resume: すでに得られた個体で本学習するか否か. 
     <br>
     
-    * 本学習する場合
-        * 060: best_ind: 最良個体??
+    * 本学習しない場合. ??
+        * 060: best_ind: 最良個体
             * ga(): trainer.py: ga を実行する.
         <br>
 
         * 065: 最良個体の構造のログを取る. 
         <br>
     
-    * 本学習しない場合. 
+    * 本学習する場合. ??
+        * only_predict ??
+    
+    * Fully train (本学習??)
+        * 083: 訓練する.
+        * 084: fittness 評価.
+        * 089: model で実際に予測する.
+        * 091: 実験結果を可視化.
+        * 092: model を保存.
+    <br>
+
+
+    * 関数に self をつけるのは, Trainer クラスのメソッドだから... 
+    <br> 
 
 * toolbox.register(): 引数の初期値がない関数の初期値を指定できる. 
+
+* train(self, net, dataset, is_ga): モデルを学習する関数.
+    * net: 学習するモデル.
+    * dataset: 使用するデータセット.
+    * is_ga: 探索フェーズか否かを示すフラグ.
+    * Returns: 予測精度 = correct / total * 100
