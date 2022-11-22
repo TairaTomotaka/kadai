@@ -45,10 +45,11 @@
 
         * 065: 最良個体の構造のログを取る. 
         <br>
-    
+
     * 本学習する場合. ??
         * only_predict ??
-    
+        <br>
+
     * Fully train (本学習??)
         * 083: 訓練する.
         * 084: fittness 評価.
@@ -58,10 +59,50 @@
     <br>
 
 
-    * 関数に self をつけるのは, Trainer クラスのメソッドだから... 
+    * 関数に self をつけるのは, Trainer クラスのメソッドだから...
     <br> 
 
-* toolbox.register(): 引数の初期値がない関数の初期値を指定できる. 
+* ga(self): gaを実行する関数. 
+    * Returns: best_ind: 探索で得られた最良個体
+    <br>
+    * 105 106: [DEAP についての記事](https://darden.hatenablog.com/entry/2017/04/18/225459#creatorcreate%E9%96%A2%E6%95%B0) (creator.create()について記載あり)
+    <br>
+    * 105: base.Fitness クラスを継承して, weights=(1.0,)というメンバ変数を追加した適応度を表す FitnessMax というクラスを creator モジュール内に作成している. weights=(1.0,)は, 評価する目的関数が1つの場合で, 個体の適応度を最大化したい場合にこう書く. ( 最小化したい場合 → weights=(-1.0,) と書く. )
+    <br>
+    * 106: list クラスを継承して, fitness=creator.FitnessMax というメンバ変数を追加した Individual クラスを作成している. つまり, 遺伝子を保存する個体 list に, 適応度 fitness というメンバ変数を追加して Individual としている. 
+    <br>
+
+    * base.Toolbox.register(): 引数の初期値がない関数の初期値を指定できる. 
+        * 例
+        ```
+        def test(a,b,c):
+            print a,b,c
+        
+        toolbox = base.Toolbox()
+        toolbox.register("test_wda", test, 1,2,3)
+
+        toolbox.test_wda()
+        ```
+        出力
+        ```
+        1,2,3
+        ```
+    <br>
+
+    * 109: ```create_gene``` に ```self.exp``` を渡して遺伝子を初期化する関数 ```create``` を作成.
+        * ```create_gene```: gene.py: 遺伝子初期化戦略に基づき遺伝子を初期化する関数. 
+    <br>
+
+    * 110: 109 で作成した, ```Toolbox.create``` を ```1``` 回実行して, その値を ```creator.Individual``` に格納して返す関数 ```individual``` を作成している. 
+        * ```tools.initRpeat```: 3個の引数 container, func, n を持っており, n 回 func を実行して, その値をcontainerに格納して返す関数である. 
+        ```tools.initRpeat``` の内容. 
+        ```
+        def initRepeat(container, func, n):
+            return container(func() for _ in xrange(n))
+        ```
+    <br>
+
+    
 
 * train(self, net, dataset, is_ga): モデルを学習する関数.
     * net: 学習するモデル.
