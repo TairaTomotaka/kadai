@@ -1,7 +1,2 @@
- aiueo
-# aiueo
-# aiueo
-# aiueo
-# aiueo
-# kadai
-# kadai
+# 課題など諸々アップロード用レポジトリ
+
